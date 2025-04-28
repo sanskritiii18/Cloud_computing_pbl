@@ -1,0 +1,59 @@
+This project integrates AWS services to store and serve songs (MP3 files) and 
+their corresponding images efficiently and securely. The setup leverages Amazon S3 for storage and CloudFront for fast global delivery.
+Setup Details
+1. S3 Bucket
+Created an S3 bucket to store all media assets:
+
+/mp3/ — for song files in .mp3 format.
+
+/images/ — for song images in .jpg format.
+
+Structured the files in folders for clean management and retrieval.
+my-suno-music-app/
+    ├── mp3/
+    │    ├── song-name-1.mp3
+    │    └── song-name-2.mp3
+    └── images/
+         ├── song-name-1.jpg
+         └── song-name-2.jpg
+2. S3 Bucket Policy
+Configured a bucket policy to allow public read access for objects:
+
+Only GetObject permission is allowed.
+3. CloudFront Distribution
+Created a single CloudFront distribution pointing to the S3 bucket.
+
+Used CloudFront to deliver both MP3 files and images securely and with low latency.
+
+Enabled caching, custom error responses, and restricted access settings.
+
+Access URLs:
+
+MP3 Song URL:
+https://your-cloudfront-domain/mp3/song-name.mp3
+
+Image URL:
+https://your-cloudfront-domain/images/song-name.jpg
+
+4. File Naming Standards
+Followed best practices for filenames:
+
+All lowercase letters.
+
+Hyphens instead of spaces.
+
+Example: tum-hi-ho.mp3, agar-tum-saath-ho.jpg
+
+Integration with Application
+In the application (Streamlit frontend), songs and images are loaded dynamically:
+
+#st.audio(song['url'], format='audio/mp3')
+#st.image(song['image_url'])
+Each song object contains:
+
+title: Song name
+
+url: CloudFront URL of the MP3 file
+
+image_url: CloudFront URL of the image file
+
